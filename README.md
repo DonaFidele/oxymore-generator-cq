@@ -1,125 +1,102 @@
-# Lunogramme
+<div align="center">
 
-> **Where inner contradictions become poetry.**
->
-> **Quand les contradictions intérieures deviennent poésie.**
+# 🌙 Lunogramme
 
-🌙 · 🌙 · 🌙
+![Lunogramme banner](./docs/banner.svg)
 
-## Description technique — Français
+**Where feelings meet AI poetry.**
 
-Lunogramme est une application web poétique qui transforme deux émotions, idées ou états contradictoires en oxymores originaux et en fragments poétiques. L'interface propose une expérience d'écriture nocturne, tandis qu'une route serveur prépare la génération structurée de contenus avec le Vercel AI SDK.
+![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
+![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)
+![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38bdf8?logo=tailwindcss)
+![Vercel AI SDK](https://img.shields.io/badge/Vercel-AI%20SDK-black?logo=vercel)
+![License](https://img.shields.io/badge/license-MIT-lightgrey)
 
-### Fonctionnalités
+🌑 · 🌒 · 🌓 · 🌔 · 🌕 · 🌖 · 🌗 · 🌘
 
-- Génération d'oxymores à partir de deux émotions ou concepts
-- Production d'un poème court et d'une interprétation littéraire
-- Interface responsive en français, pensée pour l'écriture introspective
-- Validation des entrées, états de chargement et gestion des erreurs
-- Réponse structurée côté serveur pour faciliter l'évolution vers plusieurs modèles
+</div>
 
-### Architecture technique
+---
 
-- **Frontend** : Next.js 16, React, TypeScript, Tailwind CSS
-- **Backend** : Route Handler Next.js (`/api/generate`)
-- **IA** : Vercel AI SDK, avec modèle configurable via `AI_MODEL`
-- **Validation** : Zod
-- **Typographie** : Geist et Cormorant Garamond via `next/font`
-- **Déploiement recommandé** : Vercel
+## 🌗 Poem of the Day
 
-### Flux de génération
+<table>
+<tr>
+<td width="40%" align="center">
 
-1. L'utilisateur saisit deux émotions ou concepts.
-2. Le navigateur envoie une requête `POST` à `/api/generate`.
-3. Le serveur valide et normalise les entrées.
-4. Le modèle génère des oxymores, un poème et une interprétation.
-5. L'interface affiche le résultat sous forme de cartes poétiques.
+<img width="1379" height="910" alt="image" src="https://github.com/user-attachments/assets/886c4330-c3e2-4a43-b6cf-2658d429637b" />
 
-## Technical Description — English
 
-Lunogramme is a poetic web application that turns two conflicting emotions, ideas, or states into original oxymorons and short poetic fragments. It combines a nocturnal writing interface with a server-side generation route designed for structured AI output.
+</td>
+<td width="60%">
 
-### Features
+> *the room stays empty*
+> *covered with a film of dust*
+> *for the story never told*
 
-- Generate original oxymorons from two emotions or concepts
-- Produce a short poem and a literary interpretation
-- Responsive French-first interface designed for introspective writing
-- Input validation, loading states, and error handling
-- Structured server responses ready for multiple model providers
+— **Lunogramme** · 🌕 Full Moon · Sep 05, 2026
 
-### Technical Architecture
+</td>
+</tr>
+</table>
 
-- **Frontend**: Next.js 16, React, TypeScript, Tailwind CSS
-- **Backend**: Next.js Route Handler (`/api/generate`)
-- **AI**: Vercel AI SDK, with a configurable model through `AI_MODEL`
-- **Validation**: Zod
-- **Typography**: Geist and Cormorant Garamond through `next/font`
-- **Recommended deployment**: Vercel
+---
 
-### Generation Flow
+## About
 
-1. The user enters two emotions or concepts.
-2. The browser sends a `POST` request to `/api/generate`.
-3. The server validates and normalizes the inputs.
-4. The model generates oxymorons, a poem, and an interpretation.
-5. The interface renders the result as poetic cards.
+Lunogramme turns feelings into poetry. Instead of a generic "AI poem generator," it ties writing to two anchors familiar to anyone who has ever needed to put something into words at 2am: **opposing emotions** and **moon phases**. No fine-tuned model, no training data — just careful prompt engineering on top of a language model, tuned for raw and sincere verses rather than generic AI filler.
+
+## Features
+
+- 🌗 **Oxymore Generator** — enter two opposing emotions and receive 10 punchy oxymoron phrases plus a full poem exploring the tension between them
+- 🌙 **Lunar Ritual** — a daily writing ritual: today's moon phase + your mood in, a poem and a writing prompt tuned to that phase's intent out
+- 🖋️ **Structured generation** — the model always answers in strict JSON, validated with Zod, so the UI never has to guess where the poem ends and the prompt begins
+- 🎨 **Distinct visual identity** — Geist for UI, Cormorant Garamond for verses, a black/silver/violet palette built for reading at night
+
+## How It Works
+
+1. **Collect** — the frontend gathers two emotions, or a mood and the current moon phase
+2. **Validate** — the payload is checked with Zod before it ever reaches the model
+3. **Generate** — a Next.js Route Handler (`/api/generate`) calls the model configured in `AI_MODEL` via the Vercel AI SDK, with a system prompt tuned for raw, cliché-free verse
+4. **Parse** — the model's strict JSON response (`{ oxymores, poeme }` or `{ poeme, prompt_ecriture }`) is parsed directly, no post-processing needed
+5. **Render** — the poem appears typeset in Cormorant Garamond, ready to read, screenshot, or share
 
 ## Quick Start
 
 ```bash
-git clone https://github.com/<your-username>/oxymore-generator.git
-cd oxymore-generator
-pnpm install
-pnpm dev
+git clone https://github.com/<your-username>/lunogramme.git
+cd lunogramme
+npm install
+cp .env.example .env   # set AI_MODEL and your provider's API key
+npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000).
+## Tech Stack
 
-### Environment variables
-
-```bash
-AI_GATEWAY_API_KEY=your_key
-AI_MODEL=your-provider/your-model
-```
-
-The AI Gateway configuration can be managed from the Vercel project settings. Never commit secret values to GitHub.
-
-## Hashtags GitHub
-
-GitHub does not render hashtags as repository topics automatically. Add these terms in the repository **About → Topics** field, without the `#` symbol:
-
-`poetry` `poem-generator` `oxymoron` `generative-ai` `ai-poetry` `creative-writing` `nextjs` `typescript` `react` `vercel-ai-sdk` `tailwindcss` `french-tech`
-
-For a social post or project description, use:
-
-```text
-#poetry #poemgenerator #oxymoron #generativeAI #aipoetry #creativewriting #NextJS #TypeScript #React #VercelAI #TailwindCSS #FrenchTech
-```
+| Layer | Technologies |
+|---|---|
+| Frontend | Next.js 16, React, TypeScript, Tailwind CSS |
+| Backend | Next.js Route Handler (`/api/generate`) |
+| AI | Vercel AI SDK, configurable model via `AI_MODEL` |
+| Validation | Zod |
+| Typography | Geist, Cormorant Garamond (`next/font`) |
+| Deployment | Vercel |
 
 ## Roadmap
 
-- Add saved poetic sessions
-- Add sharing and exportable poetry cards
-- Add lunar prompts and themed writing rituals
-- Add multilingual generation
-- Add model and tone selection
+- [ ] Persist generated poems per user
+- [ ] Text-to-speech playback (calm, deep, or spoken-word tone)
+- [ ] Living library: users post their own verses, others "react in verse" instead of liking
+- [ ] Rate limiting on `/api/generate`
+
+## Disclaimer
+
+This is an early-stage creative/experimental project, not a mental health tool. If a feature ever touches on distress, grief, or crisis writing, it is designed to point toward real support — never to replace it.
 
 ## License
 
-This project is licensed under the MIT License. See the `LICENSE` file for details.
-
-🌙 · 🌙 · 🌙
-
-© 2026 Lunogramme
+This project is licensed under the [MIT License](./LICENSE) — feel free to reuse, modify, and contribute.
 
 ---
 
-## Connexion à GitHub / Connecting GitHub
-
-Dans v0, ouvre **Settings → GitHub**, connecte ton compte, puis sélectionne ou crée le dépôt `oxymore-generator`. Le dépôt n'est pas encore lié dans cet environnement : la commande `gh repo view` n'a trouvé aucun remote GitHub configuré.
-
-In v0, open **Settings → GitHub**, connect your account, then select or create the `oxymore-generator` repository. This environment is not linked to a GitHub remote yet: `gh repo view` found no configured GitHub remote.
-
-Après la connexion, utilise **Git → Push changes** ou crée une pull request depuis l'interface v0. Vérifie le README et remplace `<your-username>` par ton identifiant GitHub avant de publier.
-
-After connecting, use **Git → Push changes** or create a pull request from the v0 interface. Review the README and replace `<your-username>` with your GitHub username before publishing.
+<div align="center">
