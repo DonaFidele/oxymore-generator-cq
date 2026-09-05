@@ -2,12 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BookOpen, Home, Moon, Sparkles } from "lucide-react"
+import { BookOpen, Home, Moon, Palette, Sparkles } from "lucide-react"
 
 const items = [
   { href: "/", label: "Accueil", icon: Home },
   { href: "/oxymores", label: "Oxymores", icon: Sparkles },
   { href: "/lunogramme", label: "Lunogramme", icon: Moon },
+  { href: "/atelier", label: "Atelier", icon: Palette },
 ]
 
 export function LunarNav() {
@@ -33,7 +34,7 @@ export function LunarNav() {
 }
 
 export function PageShell({ children }: { children: React.ReactNode }) {
-  return <div className="app-shell"><LunarNav /><main>{children}</main></div>
+  return <div className="app-shell"><div className="starfield" aria-hidden="true">{Array.from({ length: 34 }, (_, i) => <i key={i} style={{ "--star-x": `${(i * 29) % 100}%`, "--star-y": `${(i * 47) % 100}%`, "--star-delay": `${(i % 7) * 0.45}s`, "--star-size": `${i % 5 === 0 ? 3 : 1.5}px` } as React.CSSProperties} />)}<span className="star-moon" /></div><LunarNav /><main>{children}</main></div>
 }
 
 export function SectionIntro({ eyebrow, title, children }: { eyebrow: string; title: React.ReactNode; children: React.ReactNode }) {
