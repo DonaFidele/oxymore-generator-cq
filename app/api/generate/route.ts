@@ -2,26 +2,39 @@ import { gateway, generateObject } from 'ai'
 import { z } from 'zod'
 
 const generationSchema = z.object({
-  oxymores: z.array(z.string()).min(3).max(5),
   poem: z.string().min(1),
+  promptEcriture: z.string().min(1),
 })
+
+const phaseIntentions: Record<string, string> = {
+  New: 'le deuil, le silence et le recommencement',
+  'Waxing Crescent': 'un élan fragile et le désir de naître',
+  'First Quarter': 'le choix, la tension et le passage à l’acte',
+  'Waxing Gibbous': 'la maturation et la lumière intérieure',
+  Full: 'la colère, l’amour brut et la vérité exposée',
+  'Waning Gibbous': 'la transmission, la gratitude et le partage',
+  'Last Quarter': 'le tri, la lucidité et le détachement',
+  'Waning Crescent': 'le repos, la mémoire et le retour à soi',
+}
 
 export async function POST(request: Request) {
   try {
     const body = await request.json()
-    const emotionOne = typeof body.emotionOne === 'string' ? body.emotionOne.trim() : ''
-    const emotionTwo = typeof body.emotionTwo === 'string' ? body.emotionTwo.trim() : ''
+    const mood = typeof body.mood === 'string' ? body.mood.trim() : ''
+    const moonPhase = typeof body.moonPhase === 'string' ? body.moonPhase : ''
+    const intention = phaseIntentions[moonPhase] || 'l’écoute et la transformation'
 
-    if (!emotionOne || !emotionTwo || emotionOne.length > 80 || emotionTwo.length > 80) {
-      return Response.json({ error: 'Les deux émotions sont nécessaires.' }, { status: 400 })
+    if (!mood || mood.length > 500 || !moonPhase) {
+      return Response.json({ error: 'Ton humeur et la phase lunaire sont nécessaires.' }, { status: 400 })
     }
 
     const { object } = await generateObject({
       model: gateway('openai/gpt-4o-mini'),
       schema: generationSchema,
-      system: `Tu es Lunogramme, un atelier de poésie française nocturne. Tu transformes les contradictions émotionnelles en oxymores délicats et en poèmes courts. Écris avec précision, douceur et une légère étrangeté. Ne sois jamais thérapeutique, moralisateur ou explicatif.`,
-      prompt: `Compose à partir de ces deux émotions : « ${emotionOne} » et « ${emotionTwo} ».
-Retourne 3 à 5 oxymores originaux en français, puis un poème de 5 à 8 vers, sans titre. Les oxymores doivent être de vraies tensions poétiques, pas de simples adjectifs juxtaposés.`,
+      system: 'Tu es Lunogramme, un atelier de poésie française nocturne. Tu écris avec précision, douceur et une légère étrangeté. Ne sois jamais thérapeutique, moralisateur ou explicatif.',
+      prompt: `L’humeur de la personne est : « ${mood} ».
+La phase lunaire est : « ${moonPhase} », avec cette intention poétique : ${intention}.
+Écris un poème français de 5 à 8 vers, sans titre, qui accueille cette humeur et laisse l’intention lunaire agir comme une contrainte poétique. Puis propose un prompt d’écriture personnel, concret et évocateur en français, en une ou deux phrases.`,
     })
 
     return Response.json(object)
