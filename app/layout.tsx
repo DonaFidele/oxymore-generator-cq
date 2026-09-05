@@ -1,10 +1,15 @@
 import { Analytics } from '@vercel/analytics/next'
+import { Cormorant_Garamond, Geist, Geist_Mono } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
 
+const geist = Geist({ subsets: ['latin'], variable: '--font-sans-family' })
+const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono-family' })
+const cormorant = Cormorant_Garamond({ subsets: ['latin'], variable: '--font-serif-family' })
+
 export const metadata: Metadata = {
-  title: 'v0 App',
-  description: 'Created with v0',
+  title: 'Lunogramme — Générateur d’oxymores',
+  description: 'Transforme tes contradictions intérieures en matière poétique.',
   generator: 'v0.app',
   icons: {
     icon: [
@@ -39,7 +44,7 @@ export default function RootLayout({
   children: React.ReactNode
 }>) {
   return (
-    <html lang="en">
+    <html lang="fr" className={`${geist.variable} ${geistMono.variable} ${cormorant.variable}`}>
       <body className="antialiased">
         {children}
         {process.env.NODE_ENV === 'production' && <Analytics />}
