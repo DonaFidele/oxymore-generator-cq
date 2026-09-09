@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BookOpen, Home, Moon, Palette, Sparkles, Languages } from "lucide-react"
+import { BookOpen, Globe2, Home, Moon, Palette, Sparkles, Languages, Wind } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const items = [
@@ -10,6 +10,10 @@ const items = [
   { href: "/oxymores", label: "Oxymores", en: "Oxymores", icon: Sparkles },
   { href: "/lunogramme", label: "Lunogramme", en: "Lunogram", icon: Moon },
   { href: "/atelier", label: "Atelier", en: "Studio", icon: Palette },
+  { href: "/emotionnel", label: "Émotionnel", en: "Mood journal", icon: Moon },
+  { href: "/bibliotheque", label: "Bibliothèque", en: "Library", icon: BookOpen },
+  { href: "/brise", label: "Brise", en: "Disappear", icon: Wind },
+  { href: "/carte", label: "Carte", en: "Poem map", icon: Globe2 },
 ]
 
 export function LunarNav() {
