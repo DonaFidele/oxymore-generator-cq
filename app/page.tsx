@@ -1,6 +1,7 @@
-import Link from "next/link"
-import { ArrowUpRight, Moon, Palette, PenLine, Sparkles } from "lucide-react"
-import { GuidedTour } from "@/components/guided-tour"
-import { PageShell, SectionIntro } from "@/components/lunar-nav"
+"use client"
 
-export default function HomePage() { return <PageShell><div className="home-page"><GuidedTour /><SectionIntro eyebrow="Un atelier nocturne pour les émotions" title={<>Écris depuis<br /><em>l&apos;entre-deux.</em></>}>Lunogramme transforme tes contradictions intérieures en fragments poétiques. Choisis ton chemin, entre l&apos;oxymore, la lune et l&apos;atelier.</SectionIntro><div className="path-grid"><Link href="/oxymores" className="path-card path-card-oxymore"><div className="path-symbol"><Sparkles size={24} /></div><div><p className="eyebrow">01 · Le laboratoire</p><h2>Oxymores</h2><p>Deux forces contraires. Une étincelle entre les deux. Compose un poème à partir de ce qui te divise.</p></div><ArrowUpRight className="path-arrow" size={21} /></Link><Link href="/lunogramme" className="path-card path-card-lune"><div className="path-symbol"><Moon size={24} /></div><div><p className="eyebrow">02 · Le journal lunaire</p><h2>Lunogramme</h2><p>La lune change, toi aussi. Dépose ton humeur du jour et laisse-la ouvrir un espace d&apos;écriture.</p></div><ArrowUpRight className="path-arrow" size={21} /></Link><Link href="/atelier" className="path-card path-card-atelier"><div className="path-symbol"><Palette size={24} /></div><div><p className="eyebrow">03 · La chambre créative</p><h2>Atelier</h2><p>Compose une citation, une inspiration ou un post poétique à décorer et partager.</p></div><ArrowUpRight className="path-arrow" size={21} /></Link></div><div className="home-note"><PenLine size={15} /><span>Un espace lent pour des mots qui restent.</span></div></div></PageShell> }
+import { ArrowDown, Sparkles } from "lucide-react"
+import { PageShell } from "@/components/lunar-nav"
+import { OxymoreFeed } from "@/components/oxymore-feed"
+
+export default function HomePage() { return <PageShell><main className="social-home"><section className="social-hero"><p className="eyebrow"><Sparkles size={14} /> Un réseau de poésie contradictoire</p><h1>Le fil des mots<br /><em>impossibles.</em></h1><p>Découvre des oxymores générés par l&apos;IA, fais-les résonner et publie les tiens.</p><a href="#feed" className="scroll-cue"><ArrowDown size={16} /> Défiler pour découvrir</a></section><div id="feed"><OxymoreFeed onGenerate={() => window.location.href = "/oxymores"} /></div></main></PageShell> }

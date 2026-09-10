@@ -2,14 +2,13 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BookOpen, Home, Moon, Palette, Sparkles, Languages } from "lucide-react"
+import { BookOpen, Home, Moon, Sparkles, Languages } from "lucide-react"
 import { useEffect, useState } from "react"
 
 const items = [
   { href: "/", label: "Accueil", en: "Home", icon: Home },
-  { href: "/oxymores", label: "Oxymores", en: "Oxymores", icon: Sparkles },
-  { href: "/lunogramme", label: "Lunogramme", en: "Lunogram", icon: Moon },
-  { href: "/atelier", label: "Atelier", en: "Studio", icon: Palette },
+  { href: "/oxymores", label: "Oxymores", en: "Create", icon: Sparkles },
+  { href: "/mesoxym", label: "MesOxym", en: "My feed", icon: BookOpen },
 ]
 
 export function LunarNav() {
