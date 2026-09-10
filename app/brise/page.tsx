@@ -1,7 +1,0 @@
-"use client"
-
-import { Wind, TimerReset } from "lucide-react"
-import { useEffect, useState } from "react"
-import { PageShell, SectionIntro } from "@/components/lunar-nav"
-
-export default function BrisePage() { const [text, setText] = useState(""); const [visible, setVisible] = useState(true); const [seconds, setSeconds] = useState(60); useEffect(() => { if (!visible || seconds <= 0) return; const timer = setInterval(() => setSeconds(value => value - 1), 1000); return () => clearInterval(timer) }, [visible, seconds]); function release() { setVisible(false); setTimeout(() => { setText(""); setSeconds(60) }, 800) } return <PageShell><div className="feature-page disappearance-page"><SectionIntro eyebrow="Brise puis disparais · 60 secondes" title={<>Écris ce que<br /><em>tu peux lâcher.</em></>}>Un espace sans archive. Ton texte existe le temps d’un souffle, puis retourne au silence.</SectionIntro><section className={`disappearance-card ${visible ? "is-visible" : "is-released"}`}><div className="disappearance-meta"><Wind size={17} /><span>Se dissout dans {seconds}s</span><TimerReset size={16} /></div><textarea value={text} onChange={event => setText(event.target.value)} placeholder="Écris ici quelque chose que tu ne veux pas garder..." rows={10} disabled={!visible} /><button className="primary-button" onClick={release} disabled={!text || !visible}><Wind size={16} /> Souffler le texte</button>{!visible && <p className="release-message">C’est parti. Rien ne te suit.</p>}</section></div></PageShell> }
