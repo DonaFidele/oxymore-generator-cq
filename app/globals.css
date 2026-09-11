@@ -37,7 +37,7 @@
   --font-mono-family: 'Geist Mono', monospace;
 }
 
-* { @apply border-border outline-accent/50; }
+* { @apply border-border outline-accent/50; } button, input, textarea, select, .path-card, .generator-panel, .feed-card, .community-card, .primary-button, .secondary-button, .share-chooser, .publish-chooser { border-radius: .65rem; } a, button { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; } a:hover, button:hover:not(:disabled) { transform: translateY(-.14rem); }
 html { background: var(--background); }
 body { @apply bg-background text-foreground; }
 ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); color: var(--foreground); }
@@ -75,7 +75,7 @@ body { @apply bg-background text-foreground; }
 .path-card p:not(.eyebrow) { max-width: 28rem; margin-top: .7rem; color: var(--muted-foreground); font-family: var(--font-serif-family); font-size: 1.05rem; line-height: 1.6; }
 .path-arrow { align-self: flex-end; color: var(--accent); }
 .home-note { display: flex; align-items: center; gap: .6rem; margin-top: 2.5rem; color: var(--muted-foreground); font-family: var(--font-mono-family); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
-.generator-panel, .moon-panel, .writing-card { border: 1px solid var(--border); background: color-mix(in oklab, var(--card) 82%, transparent); padding: clamp(1.4rem, 4vw, 2.5rem); }
+.generator-panel, .moon-panel, .writing-card { border: 1px solid var(--border); background: color-mix(in oklab, var(--card) 82%, transparent); padding: clamp(1.4rem, 4vw, 2.5rem); }.generator-panel-clean { max-width: 100%; margin-top: 2rem; }.generator-panel-clean .panel-heading { text-transform: uppercase; }.generator-panel-clean .emotion-grid { padding-bottom: 1.4rem; }.generate-button { margin-top: .3rem; }.generate-button span { font-size: 1.2rem; }.generated-editor { margin-top: 2rem; border-top: 1px solid var(--border); padding-top: 1.3rem; }
 .panel-heading { display: flex; align-items: center; gap: .6rem; border-bottom: 1px solid var(--border); padding-bottom: 1.2rem; color: var(--accent); font-family: var(--font-mono-family); font-size: .7rem; letter-spacing: .18em; text-transform: uppercase; }
 .emotion-grid { display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 1rem; padding: 2rem 0; }
 .emotion-grid label, .mood-entry { color: var(--muted-foreground); font-family: var(--font-mono-family); font-size: .65rem; letter-spacing: .12em; text-transform: uppercase; }
