@@ -40,6 +40,24 @@
 * { @apply border-border outline-accent/50; } button, input, textarea, select, .path-card, .generator-panel, .feed-card, .community-card, .primary-button, .secondary-button, .share-chooser, .publish-chooser { border-radius: .65rem; } a, button { transition: color .2s ease, background-color .2s ease, border-color .2s ease, transform .2s ease, box-shadow .2s ease; } a:hover, button:hover:not(:disabled) { transform: translateY(-.14rem); }
 html { background: var(--background); }
 body { @apply bg-background text-foreground; }
+
+/* Glassmorphism surface system */
+.app-shell { background: radial-gradient(circle at 50% -12%, oklch(0.32 0.08 285 / .42), transparent 44%), linear-gradient(135deg, oklch(0.11 0.025 285 / .98), oklch(0.16 0.035 300 / .92)); }
+.site-header { justify-content: center; }
+.lunar-nav { padding: .5rem .8rem; border: 1px solid oklch(0.82 0.1 300 / .2); border-radius: 999px; background: oklch(0.18 0.04 285 / .34); box-shadow: inset 0 1px oklch(1 0 0 / .07), 0 18px 50px oklch(0.03 0.01 285 / .26); backdrop-filter: blur(18px); }
+.language-wrap { position: absolute; right: 2rem; }
+.generator-panel, .feed-card, .path-card, .community-card, .moon-panel, .writing-card, .share-chooser, .publish-chooser, .tiktok-comments { border-color: oklch(0.82 0.1 300 / .25); background: linear-gradient(135deg, oklch(0.3 0.06 285 / .32), oklch(0.12 0.03 285 / .48)); box-shadow: inset 0 1px oklch(1 0 0 / .08), 0 24px 70px oklch(0.02 0.01 285 / .34); backdrop-filter: blur(22px); }
+.generator-panel-clean { margin-top: 1rem; }
+.generated-editor { border-top: 0; border: 1px solid oklch(0.82 0.1 300 / .24); border-radius: 1rem; background: oklch(0.08 0.02 285 / .3); padding: 1rem; }
+.generated-heading { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; margin-bottom: .65rem; color: var(--accent); font-family: var(--font-mono-family); font-size: .68rem; letter-spacing: .12em; text-transform: uppercase; }
+.generated-heading small { color: var(--muted-foreground); font-size: .58rem; letter-spacing: .04em; text-transform: none; }
+.generated-textarea { display: block; width: 100%; min-height: 10rem; border: 0; background: transparent; padding: .65rem 0; color: var(--foreground); font-family: var(--font-serif-family); font-size: clamp(1.3rem, 3vw, 1.8rem); line-height: 1.55; outline: none; resize: vertical; }
+.feed-navigation { display: flex; justify-content: center; gap: .8rem; }
+.feed-navigation button { display: grid; place-items: center; width: 2.8rem; height: 2.8rem; border: 1px solid var(--border); border-radius: 999px; color: var(--muted-foreground); background: oklch(0.15 0.03 285 / .42); backdrop-filter: blur(12px); }
+.feed-navigation button:hover, .feed-navigation button.is-active { border-color: var(--accent); color: var(--accent); box-shadow: 0 0 20px oklch(0.72 0.14 300 / .2); transform: translateY(-.15rem); }
+.star-moon { opacity: .28; transform: scale(.75); }
+@media (max-width: 700px) { .site-header { justify-content: flex-start; padding: 1rem; } .language-wrap { right: 1rem; } .lunar-nav { position: absolute; left: 3.8rem; right: auto; top: calc(100% + .5rem); display: none; gap: .7rem; overflow-x: auto; white-space: nowrap; } .lunar-nav.is-open { display: flex; } .nav-orbit { flex: 0 0 auto; } .mobile-menu-toggle { display: grid; place-items: center; width: 2.5rem; height: 2.5rem; border: 1px solid var(--border); border-radius: 999px; color: var(--accent); background: oklch(0.18 0.04 285 / .45); backdrop-filter: blur(14px); } .public-feed { display: flex; flex-direction: column; gap: 1rem; padding: 1.5rem 1rem 3rem; } .feed-intro { order: 0; } .feed-stage { min-height: auto; } .feed-card { min-height: 500px; } .feed-navigation { margin-top: .25rem; } .emotion-grid { grid-template-columns: 1fr; gap: .7rem; } .plus { display: none; } .generator-panel { padding: 1rem; } .generated-heading { align-items: flex-start; flex-direction: column; gap: .25rem; } .composer-actions { justify-content: center; } }
+
 ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); color: var(--foreground); }
 
 .app-shell { position: relative; min-height: 100vh; overflow: hidden; background: radial-gradient(circle at 50% -10%, oklch(0.25 0.06 285 / .55), transparent 42%), var(--background); }
