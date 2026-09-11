@@ -1,9 +1,9 @@
 "use client"
 
 import Link from "next/link"
-import { usePathname } from "next/navigation"
-import { BookOpen, Home, Moon, Sparkles, Languages } from "lucide-react"
 import { useEffect, useState } from "react"
+import { usePathname } from "next/navigation"
+import { BookOpen, Home, Languages, Moon, Sparkles } from "lucide-react"
 
 const items = [
   { href: "/", label: "Accueil", en: "Home", icon: Home },
@@ -13,15 +13,28 @@ const items = [
 
 export function LunarNav() {
   const pathname = usePathname()
-  const [language, setLanguage] = useState("fr")
   const [open, setOpen] = useState(false)
-  useEffect(() => { setLanguage(localStorage.getItem("lunogramme-language") || "fr") }, [])
-  const changeLanguage = (value: string) => { setLanguage(value); localStorage.setItem("lunogramme-language", value); document.documentElement.lang = value }
+  const [language, setLanguage] = useState<"fr" | "en">("fr")
+
+  useEffect(() => {
+    const saved = window.localStorage.getItem("oxymore-language")
+    if (saved === "en" || saved === "fr") setLanguage(saved)
+  }, [])
+
+  const chooseLanguage = (next: "fr" | "en") => {
+    setLanguage(next)
+    window.localStorage.setItem("oxymore-language", next)
+  }
+
   return <header className="site-header">
-    <Link href="/" className="brand-mark" aria-label="Lunogramme, accueil"><span className="brand-orbit"><Moon size={17} strokeWidth={1.5} /></span><span>Lunogramme</span></Link>
     <button className="mobile-menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Ouvrir le menu"><Moon size={18} /></button>
-    <nav className={`lunar-nav ${open ? "is-open" : ""}`} aria-label="Navigation principale">{items.map(({ href, label, en, icon: Icon }) => { const active = href === "/" ? pathname === href : pathname.startsWith(href); return <Link key={href} href={href} className={`nav-orbit ${active ? "is-active" : ""}`} aria-current={active ? "page" : undefined}><span className="nav-orbit-icon"><Icon size={18} strokeWidth={1.5} /></span><span>{language === "en" ? en : label}</span></Link> })}</nav>
-    <div className="language-wrap"><button className="header-moon" aria-label="Choisir la langue"><Moon size={19} /></button><div className="language-menu"><Languages size={14} /><button className={language === "fr" ? "is-selected" : ""} onClick={() => changeLanguage("fr")}>FR</button><button className={language === "en" ? "is-selected" : ""} onClick={() => changeLanguage("en")}>EN</button></div></div>
+    <nav className={`lunar-nav ${open ? "is-open" : ""}`} aria-label="Navigation principale">
+      {items.map(({ href, label, en, icon: Icon }) => { const active = href === "/" ? pathname === href : pathname.startsWith(href); return <Link key={href} href={href} onClick={() => setOpen(false)} className={`nav-orbit ${active ? "is-active" : ""}`} aria-current={active ? "page" : undefined}><span className="nav-orbit-icon"><Icon size={18} strokeWidth={1.5} /></span><span>{language === "fr" ? label : en}</span></Link> })}
+    </nav>
+    <div className="language-wrap">
+      <button className="header-moon" aria-label="Choisir la langue"><Languages size={17} /></button>
+      <div className="language-menu" role="group" aria-label="Language selector"><button className={language === "fr" ? "is-selected" : ""} onClick={() => chooseLanguage("fr")}>FR</button><button className={language === "en" ? "is-selected" : ""} onClick={() => chooseLanguage("en")}>EN</button></div>
+    </div>
   </header>
 }
 
