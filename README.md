@@ -57,8 +57,8 @@ Lunogramme turns feelings into poetry. Instead of a generic "AI poem generator,"
 
 1. **Collect** — the frontend gathers two emotions, or a mood and the current moon phase
 2. **Validate** — the payload is checked with Zod before it ever reaches the model
-3. **Generate** — a Next.js Route Handler (`/api/generate`) calls the model configured in `AI_MODEL` via the Vercel AI SDK, with a system prompt tuned for raw, cliché-free verse
-4. **Parse** — the model's strict JSON response (`{ oxymores, poeme }` or `{ poeme, prompt_ecriture }`) is parsed directly, no post-processing needed
+3. **Generate** — a Next.js Route Handler (`/api/oxymores`) calls Vercel AI Gateway with the model configured in `AI_MODEL`, with a system prompt tuned for raw, cliché-free verse
+4. **Parse** — the model's strict JSON response (`{ oxymores, poem }`) is validated directly, no post-processing needed
 5. **Render** — the poem appears typeset in Cormorant Garamond, ready to read, screenshot, or share
 
 ## Quick Start
@@ -67,7 +67,7 @@ Lunogramme turns feelings into poetry. Instead of a generic "AI poem generator,"
 git clone https://github.com/<your-username>/lunogramme.git
 cd lunogramme
 npm install
-cp .env.example .env   # set AI_MODEL and your provider's API key
+cp .env.example .env   # set AI_GATEWAY_API_KEY (and optionally AI_MODEL)
 npm run dev
 ```
 
@@ -76,8 +76,8 @@ npm run dev
 | Layer | Technologies |
 |---|---|
 | Frontend | Next.js 16, React, TypeScript, Tailwind CSS |
-| Backend | Next.js Route Handler (`/api/generate`) |
-| AI | Vercel AI SDK, configurable model via `AI_MODEL` |
+| Backend | Next.js Route Handler (`/api/oxymores`) |
+| AI | Vercel AI Gateway via AI SDK, configurable model via `AI_MODEL` |
 | Validation | Zod |
 | Typography | Geist, Cormorant Garamond (`next/font`) |
 | Deployment | Vercel |
