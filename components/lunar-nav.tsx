@@ -3,10 +3,9 @@
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { usePathname } from "next/navigation"
-import { BookOpen, Home, Languages, Moon, Sparkles } from "lucide-react"
+import { BookOpen, Languages, Moon, Sparkles } from "lucide-react"
 
 const items = [
-  { href: "/", label: "Accueil", en: "Home", icon: Home },
   { href: "/oxymores", label: "Oxymores", en: "Create", icon: Sparkles },
   { href: "/mesoxym", label: "MesOxym", en: "My feed", icon: BookOpen },
 ]

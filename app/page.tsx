@@ -1,8 +1,5 @@
-"use client"
-
-import { PageShell } from "@/components/lunar-nav"
-import { OxymoreFeed } from "@/components/oxymore-feed"
+import { redirect } from "next/navigation"
 
 export default function HomePage() {
-  return <PageShell><main className="social-home"><OxymoreFeed onGenerate={() => { window.location.href = "/oxymores" }} /></main></PageShell>
+  redirect("/oxymores")
 }
