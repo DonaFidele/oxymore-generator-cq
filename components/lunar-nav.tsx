@@ -34,4 +34,4 @@ export function LunarNav() {
 }
 
 export function PageShell({ children }: { children: React.ReactNode }) { return <div className="app-shell"><div className="starfield" aria-hidden="true">{Array.from({ length: 34 }, (_, i) => <i key={i} style={{ "--star-x": `${(i * 29) % 100}%`, "--star-y": `${(i * 47) % 100}%`, "--star-delay": `${(i % 7) * 0.45}s`, "--star-size": `${i % 5 === 0 ? 3 : 1.5}px` } as React.CSSProperties} />)}<span className="star-moon" /></div><LunarNav /><main>{children}</main></div> }
-export function SectionIntro({ eyebrow, title, children }: { eyebrow: string; title: React.ReactNode; children: React.ReactNode }) { return <section className="section-intro"><p className="eyebrow"><BookOpen size={14} /> {eyebrow}</p><h1>{title}</h1><p className="intro-copy">{children}</p></section> }
+export function SectionIntro({ eyebrow, title, children }: { eyebrow: string; title?: React.ReactNode; children: React.ReactNode }) { return <section className="section-intro"><p className="eyebrow"><BookOpen size={14} /> {eyebrow}</p>{title ? <h1>{title}</h1> : null}<p className="intro-copy">{children}</p></section> }
