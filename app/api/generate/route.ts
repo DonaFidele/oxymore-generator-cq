@@ -23,6 +23,7 @@ export async function POST(request: Request) {
   try {
     const body = await request.json()
     const mood = typeof body.mood === 'string' ? body.mood.trim() : ''
+    const image = typeof body.image === 'string' && body.image.startsWith('data:image/') ? body.image : null
     const moonPhase = typeof body.moonPhase === 'string' ? body.moonPhase : ''
     const intention = phaseIntentions[moonPhase] || 'l’écoute et la transformation'
 
@@ -34,9 +35,9 @@ export async function POST(request: Request) {
       model: gateway('openai/gpt-4o-mini'),
       schema: generationSchema,
       system: 'Tu es Lunogramme, un atelier de poésie française nocturne. Tu écris avec précision, douceur et une légère étrangeté. Ne sois jamais thérapeutique, moralisateur ou explicatif.',
-      prompt: `L’humeur de la personne est : « ${mood} ».
+      ...(image ? { messages: [{ role: 'user', content: [{ type: 'image', image }, { type: 'text', text: `Observe cette image et transforme ses formes, couleurs, contrastes et atmosphère en un poème français. La phase lunaire est « ${moonPhase} », avec cette intention : ${intention}. Écris un titre évocateur, exactement trois topics courts, puis trois strophes séparées par une ligne vide. Chaque strophe contient exactement quatre vers. Le poème doit être concret, musical et poétique, sans explication. Propose aussi un prompt d’écriture personnel en une ou deux phrases.` }] }] } : { prompt: `L’humeur de la personne est : « ${mood} ».
 La phase lunaire est : « ${moonPhase} », avec cette intention poétique : ${intention}.
-Écris un poème français avec un titre évocateur, exactement trois topics courts, puis trois strophes séparées par une ligne vide. Chaque strophe doit contenir exactement quatre vers. Le poème doit être concret, musical et poétique, sans numérotation ni explication. Propose aussi un prompt d’écriture personnel, concret et évocateur en français, en une ou deux phrases.`,
+Écris un poème français avec un titre évocateur, exactement trois topics courts, puis trois strophes séparées par une ligne vide. Chaque strophe doit contenir exactement quatre vers. Le poème doit être concret, musical et poétique, sans numérotation ni explication. Propose aussi un prompt d’écriture personnel, concret et évocateur en français, en une ou deux phrases.` }),
     })
 
     return Response.json(object)
