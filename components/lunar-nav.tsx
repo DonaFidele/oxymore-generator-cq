@@ -2,22 +2,16 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { BookOpen, Home, Moon, Sparkles } from "lucide-react"
+import { Sparkles } from "lucide-react"
 
 const items = [
-  { href: "/", label: "Accueil", icon: Home },
-  { href: "/oxymores", label: "Oxymores", icon: Sparkles },
-  { href: "/lunogramme", label: "Lunogramme", icon: Moon },
+  { href: "/", label: "Oxymores", icon: Sparkles },
 ]
 
 export function LunarNav() {
   const pathname = usePathname()
   return (
     <header className="site-header">
-      <Link href="/" className="brand-mark" aria-label="Lunogramme, accueil">
-        <span className="brand-orbit"><Moon size={17} strokeWidth={1.5} /></span>
-        <span>Lunogramme</span>
-      </Link>
       <nav className="lunar-nav" aria-label="Navigation principale">
         {items.map(({ href, label, icon: Icon }) => {
           const active = href === "/" ? pathname === href : pathname.startsWith(href)
@@ -27,7 +21,6 @@ export function LunarNav() {
           </Link>
         })}
       </nav>
-      <div className="header-moon" aria-hidden="true"><Moon size={19} /></div>
     </header>
   )
 }
