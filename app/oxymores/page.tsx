@@ -1,47 +1,31 @@
 "use client"
 
-import { useState } from "react"
-import { ArrowRight, Sparkles } from "lucide-react"
+import { Check, Languages, Send, Sparkles } from "lucide-react"
+import { useEffect, useState } from "react"
 import { PageShell } from "@/components/lunar-nav"
-import { WritingCard } from "@/components/social-actions"
-
-type Generation = {
-  title: string
-  oxymores: string[]
-  poem: string
-}
 
 export default function OxymoresPage() {
-  const [first, setFirst] = useState("")
-  const [second, setSecond] = useState("")
-  const [generation, setGeneration] = useState<Generation | null>(null)
-  const [error, setError] = useState("")
-  const [isLoading, setIsLoading] = useState(false)
-
-  async function generate() {
-    setIsLoading(true)
-    setError("")
-    setGeneration(null)
-
+  const [forces, setForces] = useState({ first: "", contrary: "" })
+  const [draft, setDraft] = useState({ title: "", text: "" })
+  const [notice, setNotice] = useState("")
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [language, setLanguage] = useState<"fr" | "en">("fr")
+  useEffect(() => { const saved = window.localStorage.getItem("oxymore-language"); if (saved === "en" || saved === "fr") setLanguage(saved) }, [])
+  const chooseLanguage = (next: "fr" | "en") => { setLanguage(next); window.localStorage.setItem("oxymore-language", next) }
+  const setNoticeAndClear = (message: string) => { setNotice(message); window.setTimeout(() => setNotice(""), 2600) }
+  const saveToFeed = () => { localStorage.setItem("mesoxym-post", JSON.stringify({ title: draft.title || "Oxymore sans titre", text: draft.text, author: "toi" })) }
+  const generatePoem = async () => {
+    if (!forces.first.trim() || !forces.contrary.trim()) { setNoticeAndClear("Écris les deux forces de ton oxymore."); return }
+    setIsGenerating(true); setNotice("")
     try {
-      const response = await fetch("/api/oxymores", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ first, second }),
-      })
-      const data = await response.json()
-
-      if (!response.ok) {
-        throw new Error(data.error || "La génération a échoué.")
-      }
-
-      setGeneration(data as Generation)
-    } catch (generationError) {
-      setError(generationError instanceof Error ? generationError.message : "La génération a échoué.")
-    } finally {
-      setIsLoading(false)
-    }
+      const response = await fetch("/api/generate", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ mood: `${forces.first.trim()} et ${forces.contrary.trim()}`, moonPhase: "Full" }) })
+      const result = await response.json()
+      if (!response.ok) throw new Error(result.error || "La génération a échoué.")
+      setDraft({ title: forces.first, text: result.poem })
+      localStorage.setItem("mesoxym-post", JSON.stringify({ title: forces.first, text: result.poem, author: "toi" }))
+      setNoticeAndClear("Oxymore ajouté à MesOxym.")
+    } catch (error) { setNoticeAndClear(error instanceof Error ? error.message : "La génération a échoué.") } finally { setIsGenerating(false) }
   }
-
-  return <PageShell><div className="feature-page" data-tour="oxymores"><div className="generator-panel"><div className="panel-heading"><Sparkles size={18} /><span>Nouvel oxymore</span></div><div className="emotion-grid"><label>Première force<input value={first} onChange={e => setFirst(e.target.value)} placeholder="ex. tendresse" maxLength={120} /></label><span className="plus">×</span><label>Force contraire<input value={second} onChange={e => setSecond(e.target.value)} placeholder="ex. distance" maxLength={120} /></label></div><button className="primary-button" onClick={generate} disabled={!first.trim() || !second.trim() || isLoading}>{isLoading ? "Le poème prend forme..." : "Faire surgir le poème"} <ArrowRight size={16} /></button>{error && <p className="generation-error" role="alert">{error}</p>}</div>{generation && <WritingCard><p className="eyebrow">Ton fragment</p><h2>{generation.title}</h2><ul className="oxymore-list" aria-label="Images nées de cet oxymore">{generation.oxymores.map((oxymore) => <li key={oxymore}>{oxymore}</li>)}</ul><p className="poem-text">{generation.poem}</p></WritingCard>}</div></PageShell>
+  const publish = () => { saveToFeed(); setNoticeAndClear("Oxymore publié dans MesOxym.") }
+  return <PageShell><main className="feature-page generator-page"><section className="generator-panel generator-panel-clean"><div className="panel-heading"><Sparkles size={16} /> Nouvel oxymore</div><div className="emotion-grid"><label>Première force<input value={forces.first} onChange={(event) => setForces({ ...forces, first: event.target.value })} placeholder="ex. tendresse" /></label><span className="plus">×</span><label>Force contraire<input value={forces.contrary} onChange={(event) => setForces({ ...forces, contrary: event.target.value })} placeholder="ex. distance" /></label></div><button className="primary-button generate-button" onClick={generatePoem} disabled={isGenerating}><Sparkles size={16} /> {isGenerating ? "Le poème prend forme..." : "Faire surgir le poème"} <span>→</span></button><div className="generated-editor" aria-live="polite"><div className="generated-heading"><span>Votre fragment</span><small>modifiable avant publication</small></div><label className="sr-only" htmlFor="generated-text">Votre oxymore généré</label><textarea id="generated-text" className="generated-textarea" value={draft.text} onChange={(event) => setDraft({ ...draft, text: event.target.value })} placeholder="Le poème apparaîtra ici, comme une pensée qui prend forme..." /></div><div className="composer-actions"><button className="secondary-button" onClick={() => setNoticeAndClear("Brouillon gardé.")}><Check size={16} /> Brouillon</button><button className="primary-button" onClick={publish}><Send size={16} /> Publier</button></div>{notice && <p className="action-toast">{notice}</p>}<div className="generator-footer"><div className="language-wrap"><button className="header-moon" aria-label="Choisir la langue"><Languages size={17} /></button><div className="language-menu" role="group" aria-label="Language selector"><button className={language === "fr" ? "is-selected" : ""} onClick={() => chooseLanguage("fr")}>FR</button><button className={language === "en" ? "is-selected" : ""} onClick={() => chooseLanguage("en")}>EN</button></div></div></div></section></main></PageShell>
 }
