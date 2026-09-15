@@ -23,8 +23,7 @@ export default function OxymoresPage() {
       const result = await response.json()
       if (!response.ok) throw new Error(result.error || "La génération a échoué.")
       setDraft({ title: result.title, topics: result.topics, text: result.poem })
-      localStorage.setItem("mesoxym-post", JSON.stringify({ title: result.title, topics: result.topics, text: result.poem, author: "toi" }))
-      setNoticeAndClear("Oxymore ajouté à MesOxym.")
+      setNoticeAndClear("Poème généré. Vérifie l’aperçu puis publie-le quand tu es prêt.")
     } catch (error) { setNoticeAndClear(error instanceof Error ? error.message : "La génération a échoué.") } finally { setIsGenerating(false) }
   }
   const publish = async () => { try { await saveToFeed(); setNoticeAndClear("Oxymore publié dans MesOxym.") } catch (error) { setNoticeAndClear(error instanceof Error ? error.message : "La publication a échoué.") } }
