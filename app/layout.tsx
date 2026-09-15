@@ -2,6 +2,7 @@ import { Analytics } from '@vercel/analytics/next'
 import { Cormorant_Garamond, Geist, Geist_Mono } from 'next/font/google'
 import type { Metadata, Viewport } from 'next'
 import './globals.css'
+import { LanguageProvider } from '@/components/language-provider'
 
 const geist = Geist({ subsets: ['latin'], variable: '--font-sans-family' })
 const geistMono = Geist_Mono({ subsets: ['latin'], variable: '--font-mono-family' })
@@ -46,7 +47,7 @@ export default function RootLayout({
   return (
     <html lang="fr" className={`${geist.variable} ${geistMono.variable} ${cormorant.variable}`}>
       <body className="antialiased">
-        {children}
+        <LanguageProvider>{children}</LanguageProvider>
         {process.env.NODE_ENV === 'production' && <Analytics />}
       </body>
     </html>
