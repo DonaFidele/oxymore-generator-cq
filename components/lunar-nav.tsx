@@ -1,9 +1,10 @@
 "use client"
 
 import Link from "next/link"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { usePathname } from "next/navigation"
 import { BookOpen, Languages, Moon, Sparkles } from "lucide-react"
+import { useLanguage } from "@/components/language-provider"
 
 const items = [
   { href: "/oxymores", label: "Oxymores", en: "Create", icon: Sparkles },
@@ -13,17 +14,8 @@ const items = [
 export function LunarNav() {
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
-  const [language, setLanguage] = useState<"fr" | "en">("fr")
-
-  useEffect(() => {
-    const saved = window.localStorage.getItem("oxymore-language")
-    if (saved === "en" || saved === "fr") setLanguage(saved)
-  }, [])
-
-  const chooseLanguage = (next: "fr" | "en") => {
-    setLanguage(next)
-    window.localStorage.setItem("oxymore-language", next)
-  }
+  const { language, setLanguage } = useLanguage()
+  const chooseLanguage = (next: "fr" | "en") => setLanguage(next)
 
   return <header className="site-header">
     <button className="mobile-menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Ouvrir le menu"><Moon size={18} /></button>
