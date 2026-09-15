@@ -2,6 +2,8 @@ import { gateway, generateObject } from 'ai'
 import { z } from 'zod'
 
 const generationSchema = z.object({
+  title: z.string().min(1),
+  topics: z.array(z.string().min(1)).length(3),
   poem: z.string().min(1),
   promptEcriture: z.string().min(1),
 })
@@ -34,7 +36,7 @@ export async function POST(request: Request) {
       system: 'Tu es Lunogramme, un atelier de poésie française nocturne. Tu écris avec précision, douceur et une légère étrangeté. Ne sois jamais thérapeutique, moralisateur ou explicatif.',
       prompt: `L’humeur de la personne est : « ${mood} ».
 La phase lunaire est : « ${moonPhase} », avec cette intention poétique : ${intention}.
-Écris un poème français de 5 à 8 vers, sans titre, qui accueille cette humeur et laisse l’intention lunaire agir comme une contrainte poétique. Puis propose un prompt d’écriture personnel, concret et évocateur en français, en une ou deux phrases.`,
+Écris un poème français avec un titre évocateur, exactement trois topics courts, puis trois strophes séparées par une ligne vide. Chaque strophe doit contenir exactement quatre vers. Le poème doit être concret, musical et poétique, sans numérotation ni explication. Propose aussi un prompt d’écriture personnel, concret et évocateur en français, en une ou deux phrases.`,
     })
 
     return Response.json(object)
