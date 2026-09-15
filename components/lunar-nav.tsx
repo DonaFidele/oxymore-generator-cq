@@ -2,7 +2,7 @@
 
 import Link from "next/link"
 import { usePathname } from "next/navigation"
-import { Sparkles } from "lucide-react"
+import { BookOpen, Sparkles } from "lucide-react"
 
 const items = [
   { href: "/", label: "Oxymores", icon: Sparkles },
