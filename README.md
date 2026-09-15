@@ -1,77 +1,76 @@
 <div align="center">
 
-# 🌙 Lunogramme
+# 🌙 Oxymore — the contradictory poem generator
 
-![Lunogramme banner](./docs/banner.svg)
+**Pair two words that were never meant to meet. Watch poetry emerge from the collision.**
 
-**Where feelings meet AI poetry.**
+Oxymore turns two opposing forces — *tenderness* and *distance*, *war* and *peace* — into a unique AI-generated poetic fragment. Publish it, let the community react, or generate a poem straight from an image.
 
-![Next.js](https://img.shields.io/badge/Next.js-16-black?logo=next.js)
-![TypeScript](https://img.shields.io/badge/TypeScript-strict-blue?logo=typescript)
-![Tailwind](https://img.shields.io/badge/Tailwind-CSS-38bdf8?logo=tailwindcss)
-![Vercel AI SDK](https://img.shields.io/badge/Vercel-AI%20SDK-black?logo=vercel)
-![License](https://img.shields.io/badge/license-MIT-lightgrey)
+[**✨ Try it live**](https://oxymore-generator.vercel.app) · [Report a bug](../../issues) · [Suggest an idea](../../issues)
 
-🌑 · 🌒 · 🌓 · 🌔 · 🌕 · 🌖 · 🌗 · 🌘
+<!-- Replace the line below with a GIF showing a poem being generated -->
+![Oxymore generator demo](./docs/demo.gif)
+
+[![Build](https://img.shields.io/github/actions/workflow/status/DonaFidele/oxymore-generator-cq/deploy.yml?label=build&style=flat-square)](../../actions)
+[![License](https://img.shields.io/badge/license-MIT-blueviolet?style=flat-square)](./LICENSE)
+[![Version](https://img.shields.io/badge/version-1.0.0-purple?style=flat-square)](../../releases)
+[![Next.js](https://img.shields.io/badge/Next.js-16-black?style=flat-square&logo=next.js)](https://nextjs.org)
 
 </div>
 
 ---
 
-## 🌗 Poem of the Day
+## Why Oxymore?
 
-<table>
-<tr>
-<td width="40%" align="center">
+Every poem is born from tension: two words, two images, two emotions that were never supposed to collide. The space between them becomes poetry. Built for:
 
-<img width="1379" height="910" alt="image" src="https://github.com/user-attachments/assets/886c4330-c3e2-4a43-b6cf-2658d429637b" />
-
-
-</td>
-<td width="60%">
-
-> *the room stays empty*
-> *covered with a film of dust*
-> *for the story never told*
-
-— **Lunogramme** · 🌕 Full Moon · Sep 05, 2026
-
-</td>
-</tr>
-</table>
-
----
-
-## About
-
-Lunogramme turns feelings into poetry. Instead of a generic "AI poem generator," it ties writing to two anchors familiar to anyone who has ever needed to put something into words at 2am: **opposing emotions** and **moon phases**. No fine-tuned model, no training data — just careful prompt engineering on top of a language model, tuned for raw and sincere verses rather than generic AI filler.
+- ✍️ **Writing enthusiasts** who want a creative spark without a blank page
+- 🎨 **Visual creatives** who'd rather start from an image than words
+- 🌐 **A quiet community** — no account required, anonymous posting, built-in comments and likes
 
 ## Features
 
-- 🌗 **Oxymore Generator** — enter two opposing emotions and receive 10 punchy oxymoron phrases plus a full poem exploring the tension between them
-- 🌙 **Lunar Ritual** — a daily writing ritual: today's moon phase + your mood in, a poem and a writing prompt tuned to that phase's intent out
-- 🖋️ **Structured generation** — the model always answers in strict JSON, validated with Zod, so the UI never has to guess where the poem ends and the prompt begins
-- 🎨 **Distinct visual identity** — Geist for UI, Cormorant Garamond for verses, a black/silver/violet palette built for reading at night
+- 🪄 Generate a poem from **two contrasting words/expressions**
+- 🖼️ Generate a poem from an **uploaded image**
+- 💬 Nested comments (replies to replies) and a like system
+- 🌍 Auto-translated interface, user content stays untouched
+- 📱 Responsive design, glassmorphism, zero friction — no sign-up needed
 
-## How It Works
+## Quick start
 
-1. **Collect** — the frontend gathers two emotions, or a mood and the current moon phase
-2. **Validate** — the payload is checked with Zod before it ever reaches the model
-3. **Generate** — a Next.js Route Handler (`/api/oxymores`) calls Vercel AI Gateway with the model configured in `AI_MODEL`, with a system prompt tuned for raw, cliché-free verse
-4. **Parse** — the model's strict JSON response (`{ oxymores, poem }`) is validated directly, no post-processing needed
-5. **Render** — the poem appears typeset in Cormorant Garamond, ready to read, screenshot, or share
-
-## Quick Start
+Clone and run locally in under two minutes:
 
 ```bash
-git clone https://github.com/<your-username>/lunogramme.git
-cd lunogramme
+git clone https://github.com/DonaFidele/oxymore-generator-cq.git
+cd oxymore-generator-cq
 npm install
-cp .env.example .env   # set AI_GATEWAY_API_KEY (and optionally AI_MODEL)
+```
+
+Copy the example env file and add your API key:
+
+```bash
+cp .env.example .env.local
+```
+
+Start the dev server:
+
+```bash
 npm run dev
 ```
 
-## Tech Stack
+Open [http://localhost:3000](http://localhost:3000) — you're set.
+
+## One-liner usage
+
+Call the generation API directly:
+
+```bash
+curl -X POST http://localhost:3000/api/oxymores \
+  -H "Content-Type: application/json" \
+  -d '{"first": "tenderness", "second": "distance"}'
+```
+
+## Tech stack
 
 | Layer | Technologies |
 |---|---|
@@ -82,21 +81,14 @@ npm run dev
 | Typography | Geist, Cormorant Garamond (`next/font`) |
 | Deployment | Vercel |
 
-## Roadmap
+## Contributing
 
-- [ ] Persist generated poems per user
-- [ ] Text-to-speech playback (calm, deep, or spoken-word tone)
-- [ ] Living library: users post their own verses, others "react in verse" instead of liking
-- [ ] Rate limiting on `/api/generate`
-
-## Disclaimer
-
-This is an early-stage creative/experimental project, not a mental health tool. If a feature ever touches on distress, grief, or crisis writing, it is designed to point toward real support — never to replace it.
+Contributions are welcome! Open an [issue](../../issues) or a pull request — see `CONTRIBUTING.md` for details.
 
 ## License
 
-This project is licensed under the [MIT License](./LICENSE) — feel free to reuse, modify, and contribute.
+Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more information.
 
 ---
 
-<div align="center">
+<div align="center"> Fait avec 🧠✨ par <a href="https://github.com/DonaFidele">Dona😎</a> </div>
