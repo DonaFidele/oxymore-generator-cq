@@ -3,7 +3,7 @@
 import Link from "next/link"
 import { useState } from "react"
 import { usePathname } from "next/navigation"
-import { BookOpen, Languages, Moon, Sparkles } from "lucide-react"
+import { BookOpen, Sparkles } from "lucide-react"
 import { useLanguage } from "@/components/language-provider"
 
 const items = [
@@ -13,14 +13,12 @@ const items = [
 
 export function LunarNav() {
   const pathname = usePathname()
-  const [open, setOpen] = useState(false)
   const { language, setLanguage } = useLanguage()
   const chooseLanguage = (next: "fr" | "en") => setLanguage(next)
 
   return <header className="site-header">
-    <button className="mobile-menu-toggle" onClick={() => setOpen(!open)} aria-expanded={open} aria-label="Ouvrir le menu"><Moon size={18} /></button>
-    <nav className={`lunar-nav ${open ? "is-open" : ""} mobile-visible`} aria-label="Navigation principale">
-      {items.map(({ href, label, en, icon: Icon }) => { const active = pathname.startsWith(href); return <Link key={href} href={href} onClick={() => setOpen(false)} className={`nav-orbit ${active ? "is-active" : ""}`} aria-current={active ? "page" : undefined}><span className="nav-orbit-icon"><Icon size={18} strokeWidth={1.5} /></span><span>{language === "fr" ? label : en}</span></Link> })}
+    <nav className="lunar-nav mobile-visible" aria-label="Navigation principale">
+      {items.map(({ href, label, en, icon: Icon }) => { const active = pathname.startsWith(href); return <Link key={href} href={href} className={`nav-orbit ${active ? "is-active" : ""}`} aria-current={active ? "page" : undefined}><span className="nav-orbit-icon"><Icon size={18} strokeWidth={1.5} /></span><span>{language === "fr" ? label : en}</span></Link> })}
     </nav>
   </header>
 }
