@@ -91,4 +91,4 @@ Distributed under the MIT License. See [`LICENSE`](./LICENSE) for more informati
 
 ---
 
-<div align="center"> Fait avec 🧠✨ par <a href="https://github.com/DonaFidele">Dona😎</a> </div>
+<div align="center"> Made with 🧠✨ by <a href="https://github.com/DonaFidele">Dona😎</a> </div>
